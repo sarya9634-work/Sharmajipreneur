@@ -742,29 +742,71 @@
           </div>
         </div>
 
-        <div class="col-lg-8 col-md-7">
-          <form class="row g-3">
-            <div class="col-md-6">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Your Name">
-            </div>
-            <div class="col-md-6">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Your Email">
-            </div>
-            <div class="col-12">
-              <label for="subject" class="form-label">Subject</label>
-              <input type="text" class="form-control" id="subject" placeholder="Subject">
-            </div>
-            <div class="col-12">
-              <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" rows="5" placeholder="Write your message"></textarea>
-            </div>
-            <div class="col-12 text-end">
-              <button type="submit" class="btn btn-3d px-4">Send Message</button>
-            </div>
-          </form>
-        </div>
+       <div class="col-lg-8 col-md-7">
+  <form id="contactForm" class="row g-3">
+    <div class="col-md-6">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+    </div>
+    <div class="col-md-6">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+    </div>
+    <div class="col-12">
+      <label for="subject" class="form-label">Subject</label>
+      <input type="text" class="form-control" id="subject" placeholder="Subject" required>
+    </div>
+    <div class="col-12">
+      <label for="message" class="form-label">Message</label>
+      <textarea class="form-control" id="message" rows="5" placeholder="Write your message" required></textarea>
+    </div>
+    <div class="col-12 text-end">
+      <button type="submit" class="btn btn-3d px-4">Send Message</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Get the form
+  const form = document.getElementById('contactForm');
+
+  // Listen for submit event
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent form from reloading the page
+
+    // Collect form data
+    const formData = {
+      name: document.getElementById('name').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      subject: document.getElementById('subject').value.trim(),
+      message: document.getElementById('message').value.trim()
+    };
+
+    // Example: Display in console (or you can send it to a server)
+    console.log('Form Data:', formData);
+
+    // Optional: send data to a server API endpoint (example)
+    /*
+    fetch('https://your-server-endpoint.com/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      alert('Message sent successfully!');
+      form.reset();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('There was a problem sending your message.');
+    });
+    */
+  });
+</script>
       </div>
     </div>
   </section>
