@@ -3,130 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pricing Packages</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Display Contact Data</title>
   <style>
     body {
-      background: #fff;
-      font-family: 'Poppins', sans-serif;
-    }
-    .pricing-card {
-      background: #101522;
-      color: #fff;
-      border-radius: 20px;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
       padding: 30px;
+    }
+    h2 {
       text-align: center;
-      transition: 0.3s ease-in-out;
-      position: relative;
+      color: #0d6efd;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #222;
+      border-radius: 8px;
       overflow: hidden;
-      min-height: 460px;
     }
-    .pricing-card:hover {
-      transform: translateY(-10px);
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #333;
     }
-    .pricing-card img {
-      width: 140px;
-      margin-bottom: 20px;
+    th {
+      background: #0d6efd;
+      color: white;
     }
-    .pricing-card h4 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      font-weight: 600;
+    tr:hover {
+      background: #333;
     }
-    .pricing-card p {
-      font-size: 0.95rem;
-      color: #cfcfcf;
-      min-height: 100px;
+    .empty {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1.1rem;
+      color: #999;
     }
-    .price {
-      font-size: 1.7rem;
-      font-weight: bold;
-      margin: 15px 0;
+    button {
+      background: #f44336;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
     }
-    .btn-buy {
-      background: #00b894;
-      color: #fff;
-      font-weight: 500;
-      padding: 10px 25px;
-      border-radius: 10px;
-    }
-    .btn-buy:hover {
-      background: #019170;
-      color: #fff;
-    }
-    .arrow-box {
-      width: 45px;
-      height: 45px;
-      background: #0d111d;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 20px auto 0;
-    }
-    .arrow-box i {
-      color: #fff;
-      font-size: 20px;
+    button:hover {
+      background: #d32f2f;
     }
   </style>
 </head>
 <body>
 
-<div class="container py-5">
-  <div class="row g-4 justify-content-center">
+  <h2>📋 Stored Contact Messages</h2>
 
-    <!-- Supreme -->
-    <div class="col-md-3">
-      <div class="pricing-card">
-        <img src="img/supreme.png" alt="Supreme">
-        <h4>Supreme</h4>
-        <p>Get everything from Pro, plus advanced digital, finance, and creative skills. Build unstoppable expertise with high-demand courses.</p>
-        <div class="price">₹17700</div>
-        <a href="#" class="btn btn-buy">Buy Now</a>
-        <div class="arrow-box mt-3"><i class="bi bi-arrow-right"></i></div>
-      </div>
-    </div>
+  <table id="contactsTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <!-- Dynamic rows will be added here -->
+    </tbody>
+  </table>
 
-    <!-- Premium -->
-    <div class="col-md-3">
-      <div class="pricing-card">
-        <img src="img/w_supreme.png" alt="Premium">
-        <h4>Premium</h4>
-        <p>Includes Pro & Supreme, plus advanced courses in finance, tech, and creativity. Perfect for ambitious learners aiming to maximize skills.</p>
-        <div class="price">₹22999</div>
-        <a href="#" class="btn btn-buy">Buy Now</a>
-        <div class="arrow-box mt-3"><i class="bi bi-arrow-right"></i></div>
-      </div>
-    </div>
+  <p class="empty" id="noDataMessage">No contact records found.</p>
 
-    <!-- Premium Plus -->
-    <div class="col-md-3">
-      <div class="pricing-card">
-        <img src="img/premium+Plus.png" alt="Premium Plus">
-        <h4>Premium Plus</h4>
-        <p>Unlock every course from Pro, Supreme, and Premium plus specialized training in VFX, Python, fitness, and more.</p>
-        <div class="price">₹29999</div>
-        <a href="#" class="btn btn-buy">Buy Now</a>
-        <div class="arrow-box mt-3"><i class="bi bi-arrow-right"></i></div>
-      </div>
-    </div>
-
-    <!-- Pro -->
-    <div class="col-md-3">
-      <div class="pricing-card">
-        <img src="img/pro.png" alt="Pro">
-        <h4>Pro</h4>
-        <p>Master essential skills like digital marketing, copywriting, Facebook ads, and content creation. Unlock certification and support.</p>
-        <div class="price">₹11800</div>
-        <a href="#" class="btn btn-buy">Buy Now</a>
-        <div class="arrow-box mt-3"><i class="bi bi-arrow-right"></i></div>
-      </div>
-    </div>
-
+  <div style="text-align:center;">
+    <button id="clearDataBtn">🗑️ Clear All Data</button>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script>
+    // LocalStorage se data fetch karna
+    const tableBody = document.getElementById('tableBody');
+    const noDataMessage = document.getElementById('noDataMessage');
+    const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+
+    if (contacts.length > 0) {
+      noDataMessage.style.display = 'none';
+
+      contacts.forEach((contact, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${contact.name}</td>
+          <td>${contact.email}</td>
+          <td>${contact.subject}</td>
+          <td>${contact.message}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    } else {
+      noDataMessage.style.display = 'block';
+    }
+
+    // Clear all data button
+    document.getElementById('clearDataBtn').addEventListener('click', () => {
+      if (confirm("⚠️ Are you sure you want to delete all records?")) {
+        localStorage.removeItem('contacts');
+        location.reload();
+      }
+    });
+  </script>
+
 </body>
 </html>
