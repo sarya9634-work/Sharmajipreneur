@@ -743,70 +743,61 @@
         </div>
 
        <div class="col-lg-8 col-md-7">
-  <form id="contactForm" class="row g-3">
-    <div class="col-md-6">
-      <label for="name" class="form-label">Name</label>
-      <input type="text" class="form-control" id="name" placeholder="Your Name" required>
-    </div>
-    <div class="col-md-6">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" placeholder="Your Email" required>
-    </div>
-    <div class="col-12">
-      <label for="subject" class="form-label">Subject</label>
-      <input type="text" class="form-control" id="subject" placeholder="Subject" required>
-    </div>
-    <div class="col-12">
-      <label for="message" class="form-label">Message</label>
-      <textarea class="form-control" id="message" rows="5" placeholder="Write your message" required></textarea>
-    </div>
-    <div class="col-12 text-end">
-      <button type="submit" class="btn btn-3d px-4">Send Message</button>
-    </div>
-  </form>
-</div>
+ <form id="contactForm" class="php-email-form" data-aos="fade-up" data-aos-delay="500">
+            <div class="row gy-4">
 
-<script>
-  // Get the form
-  const form = document.getElementById('contactForm');
+              <div class="col-md-6">
+                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+              </div>
 
-  // Listen for submit event
-  form.addEventListener('submit', function (e) {
-    e.preventDefault(); // Prevent form from reloading the page
+              <div class="col-md-6">
+                <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+              </div>
 
-    // Collect form data
-    const formData = {
-      name: document.getElementById('name').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      subject: document.getElementById('subject').value.trim(),
-      message: document.getElementById('message').value.trim()
-    };
+              <div class="col-md-12">
+                <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+              </div>
 
-    // Example: Display in console (or you can send it to a server)
-    console.log('Form Data:', formData);
+              <div class="col-md-12">
+                <textarea class="form-control" name="message" rows="4" placeholder="Message" required></textarea>
+              </div>
 
-    // Optional: send data to a server API endpoint (example)
-    /*
-    fetch('https://your-server-endpoint.com/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      alert('Message sent successfully!');
-      form.reset();
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('There was a problem sending your message.');
-    });
-    */
-  });
-</script>
+              <div class="col-md-12 text-center">
+                <button type="submit">Send Message</button>
+              </div>
+
+            </div>
+          </form>
+       </div>
+
+          <script>
+            // 🧠 JavaScript to handle form submission
+            document.getElementById('contactForm').addEventListener('submit', function (e) {
+              e.preventDefault(); // page reload hone se rokta hai
+
+              // Form data collect karna
+              const formData = {
+                name: this.name.value,
+                email: this.email.value,
+                subject: this.subject.value,
+                message: this.message.value
+              };
+
+              // Data console me show karo
+              console.log("📩 Contact Form Data Inserted:", formData);
+
+              // localStorage me insert karna (demo ke liye)
+              let savedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
+              savedContacts.push(formData);
+              localStorage.setItem('contacts', JSON.stringify(savedContacts));
+
+              // Confirmation message show karo
+              alert("✅ Your message has been captured successfully!");
+
+              // Form reset
+              this.reset();
+            });
+          </script>
       </div>
     </div>
   </section>
